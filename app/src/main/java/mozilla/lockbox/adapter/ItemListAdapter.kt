@@ -6,14 +6,14 @@
 
 package mozilla.lockbox.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import mozilla.lockbox.R
 import mozilla.lockbox.model.ItemViewModel
 import mozilla.lockbox.view.ItemViewHolder
 
-class ItemListAdapter : RecyclerView.Adapter<ItemViewHolder>() {
+class ItemListAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<ItemViewHolder>() {
     private var itemList: List<ItemViewModel>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {

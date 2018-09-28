@@ -7,7 +7,7 @@
 package mozilla.lockbox.view
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import mozilla.lockbox.R
 import mozilla.lockbox.presenter.RoutePresenter
 

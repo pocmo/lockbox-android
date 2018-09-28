@@ -7,18 +7,16 @@
 package mozilla.lockbox.view
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jakewharton.rxbinding2.view.clicks
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_locked.view.*
 import mozilla.lockbox.R
 import mozilla.lockbox.presenter.LockedPresenter
 import mozilla.lockbox.presenter.LockedViewProtocol
 
-class LockedFragment : Fragment(), LockedViewProtocol {
+class LockedFragment : androidx.fragment.app.Fragment(), LockedViewProtocol {
     private lateinit var presenter: LockedPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

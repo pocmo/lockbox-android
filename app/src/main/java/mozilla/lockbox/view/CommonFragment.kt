@@ -7,11 +7,11 @@
 package mozilla.lockbox.view
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.View
 import mozilla.lockbox.flux.Presenter
 
-open class CommonFragment : Fragment() {
+open class CommonFragment : androidx.fragment.app.Fragment() {
     lateinit var presenter: Presenter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

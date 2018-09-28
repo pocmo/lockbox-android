@@ -7,18 +7,15 @@
 package mozilla.lockbox.view
 
 import android.os.Bundle
-import android.support.v4.view.GravityCompat
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import com.jakewharton.rxbinding2.support.design.widget.itemSelections
-import com.jakewharton.rxbinding2.support.v7.widget.navigationClicks
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_item_list.view.*
 import mozilla.lockbox.R
 import mozilla.lockbox.adapter.ItemListAdapter
@@ -42,10 +39,10 @@ class ItemListFragment : CommonFragment(), ItemListView {
         view.toolbar.navigationClicks().subscribe { view.appDrawer.openDrawer(GravityCompat.START) }
                 .addTo(compositeDisposable)
 
-        val layoutManager = LinearLayoutManager(context)
+        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         view.entriesView.layoutManager = layoutManager
         view.entriesView.adapter = adapter
-        val decoration = DividerItemDecoration(context, layoutManager.orientation)
+        val decoration = androidx.recyclerview.widget.DividerItemDecoration(context, layoutManager.orientation)
         val decorationDrawable = context?.getDrawable(R.drawable.inset_divider)
         decorationDrawable?.let { decoration.setDrawable(it) }
         view.entriesView.addItemDecoration(decoration)

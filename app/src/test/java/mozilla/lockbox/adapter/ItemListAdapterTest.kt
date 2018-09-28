@@ -7,8 +7,8 @@
 package mozilla.lockbox.adapter
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import mozilla.lockbox.model.ItemViewModel
 import org.junit.Assert
 import org.junit.Before
@@ -24,7 +24,7 @@ class ItemListAdapterTest {
 
     val subject = ItemListAdapter()
     private lateinit var context: Context
-    private lateinit var parent: RecyclerView
+    private lateinit var parent: androidx.recyclerview.widget.RecyclerView
 
     private val list = listOf<ItemViewModel>(
             ItemViewModel("mozilla.org", "example@example.com", ""),
@@ -35,8 +35,8 @@ class ItemListAdapterTest {
     @Before
     fun setUp() {
         context = RuntimeEnvironment.application
-        parent = RecyclerView(context)
-        parent.layoutManager = LinearLayoutManager(context)
+        parent = androidx.recyclerview.widget.RecyclerView(context)
+        parent.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         subject.updateItems(list)
     }
 
