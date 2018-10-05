@@ -6,6 +6,8 @@
 
 package mozilla.lockbox.presenter
 
+import android.util.Log
+import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import mozilla.lockbox.flux.Dispatcher
 import mozilla.lockbox.flux.Presenter
@@ -16,6 +18,9 @@ import mozilla.lockbox.store.DataStore
 interface ItemDetailView {
     var itemId: String?
     fun updateItem(item: ItemDetailViewModel)
+
+    val addressLayoutClicks: Observable<Unit>
+    fun openWebsite(hostname: String)
 }
 
 class ItemDetailPresenter(
@@ -23,6 +28,22 @@ class ItemDetailPresenter(
     private val dispatcher: Dispatcher = Dispatcher.shared,
     private val dataStore: DataStore = DataStore.shared
 ) : Presenter() {
+
+    override fun onViewReady() {
+        this.view.addressLayoutClicks
+                .subscribe {
+                    view.itemId?.let {
+                        dataStore.get(it)
+                                .subscribe {
+                                    Log.d("hello", "${it!!.hostname}, ${it!!.formSubmitURL}")
+                                    view.openWebsite(it.formSubmitURL!!)
+                                }
+                                .addTo(compositeDisposable)
+                    }
+                }
+                .addTo(compositeDisposable)
+    }
+
     override fun onResume() {
         super.onResume()
         val itemId = view?.itemId ?: return

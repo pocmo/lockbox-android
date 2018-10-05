@@ -12,16 +12,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import com.jakewharton.rxbinding2.view.clicks
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_item_detail.*
+import kotlinx.android.synthetic.main.fragment_item_detail.view.*
 import kotlinx.android.synthetic.main.include_backable.*
-import kotlinx.android.synthetic.main.include_backable.view.*
 import mozilla.lockbox.R
 import mozilla.lockbox.model.ItemDetailViewModel
 import mozilla.lockbox.presenter.ItemDetailPresenter
 import mozilla.lockbox.presenter.ItemDetailView
+import android.content.Intent
+import android.net.Uri
 
 class ItemDetailFragment : BackableFragment(), ItemDetailView {
     override var itemId: String? = null
+    private var addressLayout: View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +37,16 @@ class ItemDetailFragment : BackableFragment(), ItemDetailView {
         val view = inflater.inflate(R.layout.fragment_item_detail, container, false)
         setupBackable(view)
 
+        addressLayout = view!!.inputHostname
         return view
+    }
+
+    override val addressLayoutClicks: Observable<Unit>
+        get() = addressLayout!!.clicks()
+
+    override fun openWebsite(hostname: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(hostname))
+        startActivity(browserIntent)
     }
 
     override fun updateItem(item: ItemDetailViewModel) {
@@ -45,6 +59,7 @@ class ItemDetailFragment : BackableFragment(), ItemDetailView {
         inputUsername.readOnly = true
         inputPassword.readOnly = true
         inputHostname.readOnly = true
+        inputHostname.isClickable = true
 
         inputHostname.setText(item.hostname, TextView.BufferType.NORMAL)
         inputUsername.setText(item.username, TextView.BufferType.NORMAL)
