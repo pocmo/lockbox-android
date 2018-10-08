@@ -6,9 +6,9 @@
 
 package mozilla.lockbox.presenter
 
-import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
+import mozilla.lockbox.action.RouteAction
 import mozilla.lockbox.flux.Dispatcher
 import mozilla.lockbox.flux.Presenter
 import mozilla.lockbox.model.ItemDetailViewModel
@@ -20,7 +20,6 @@ interface ItemDetailView {
     fun updateItem(item: ItemDetailViewModel)
 
     val addressLayoutClicks: Observable<Unit>
-    fun openWebsite(hostname: String)
 }
 
 class ItemDetailPresenter(
@@ -35,8 +34,9 @@ class ItemDetailPresenter(
                     view.itemId?.let {
                         dataStore.get(it)
                                 .subscribe {
-                                    Log.d("hello", "${it!!.hostname}, ${it!!.formSubmitURL}")
-                                    view.openWebsite(it.formSubmitURL!!)
+                                    if (it != null) {
+                                        dispatcher.dispatch(RouteAction.OpenApp(it.formSubmitURL!!))
+                                    }
                                 }
                                 .addTo(compositeDisposable)
                     }

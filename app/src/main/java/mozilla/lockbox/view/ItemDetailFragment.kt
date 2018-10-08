@@ -21,8 +21,6 @@ import mozilla.lockbox.R
 import mozilla.lockbox.model.ItemDetailViewModel
 import mozilla.lockbox.presenter.ItemDetailPresenter
 import mozilla.lockbox.presenter.ItemDetailView
-import android.content.Intent
-import android.net.Uri
 
 class ItemDetailFragment : BackableFragment(), ItemDetailView {
     override var itemId: String? = null
@@ -43,11 +41,6 @@ class ItemDetailFragment : BackableFragment(), ItemDetailView {
 
     override val addressLayoutClicks: Observable<Unit>
         get() = addressLayout!!.clicks()
-
-    override fun openWebsite(hostname: String) {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(hostname))
-        startActivity(browserIntent)
-    }
 
     override fun updateItem(item: ItemDetailViewModel) {
         toolbar.title = item.title

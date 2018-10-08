@@ -6,8 +6,11 @@
 
 package mozilla.lockbox.presenter
 
+import android.content.Intent
+import android.net.Uri
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AppCompatActivity
 import io.reactivex.rxkotlin.addTo
 import mozilla.lockbox.R
@@ -50,6 +53,11 @@ class RoutePresenter(private val activity: AppCompatActivity, routeStore: RouteS
         }
     }
 
+    fun openWebsite(hostname: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(hostname))
+        startActivity(activity, browserIntent, null)
+    }
+
     private fun clearBackStack() {
         val fm = activity.supportFragmentManager
         if (fm.backStackEntryCount > 0) {
@@ -68,6 +76,9 @@ class RoutePresenter(private val activity: AppCompatActivity, routeStore: RouteS
             is RouteAction.ItemDetail -> {
                 itemDetail.itemId = action.id
                 replaceFragment(itemDetail)
+            }
+            is RouteAction.OpenApp -> {
+                openWebsite(action.host)
             }
             is RouteAction.Back -> activity.supportFragmentManager.popBackStack()
         }

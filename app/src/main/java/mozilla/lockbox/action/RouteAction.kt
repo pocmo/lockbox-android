@@ -16,4 +16,5 @@ sealed class RouteAction : Action {
     object Back : RouteAction()
     object LockScreen : RouteAction()
     data class ItemDetail(val id: String) : RouteAction()
+    data class OpenApp(val host: String) : RouteAction()
 }
